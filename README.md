@@ -16,7 +16,7 @@ This project involves analyzing data from an online music store to understand it
 ## Installation
 To use this project, download the repository and follow these steps:
 
-1. Import the `music_store_data_analysis.sql` file into your PostgreSQL database using PgAdmin4.
+1. Import the `Music_Store_database.sql` file into your PostgreSQL database using PgAdmin4.
 2. Execute the SQL queries provided in the `music_store_data_analysis.sql` file to perform the analysis.
 
 ## Usage
