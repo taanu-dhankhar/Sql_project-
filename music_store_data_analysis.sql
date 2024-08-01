@@ -32,12 +32,13 @@ LIMIT 1;
 /* Q5: Who is the best customer? The customer who has spent the most money will be declared the best customer. 
 Write a query that returns the person who has spent the most money.*/
 
-SELECT customer.customer_id, first_name, last_name, SUM(total) AS total_spending
+SELECT customer.customer_id, customer.first_name, customer.last_name, SUM(invoice.total) as Total
 FROM customer
-JOIN invoice ON customer.customer_id = invoice.customer_id
+JOIN invoice 
+ON customer.customer_id = invoice.customer_id
 GROUP BY customer.customer_id
-ORDER BY total_spending DESC
-LIMIT 1;
+ORDER BY Total DESC 
+limit 1
 
 
 /* Q6: Write query to return the email, first name, last name, & Genre of all Rock Music listeners. 
@@ -45,28 +46,17 @@ Return your list ordered alphabetically by email starting with A. */
 
 /*Method 1 */
 
-SELECT DISTINCT email,first_name, last_name
+SELECT DISTINCT customer.email AS Email,
+                customer.first_name AS FirstName,
+                customer.last_name AS LastName,
+                genre.name AS Name
 FROM customer
 JOIN invoice ON customer.customer_id = invoice.customer_id
-JOIN invoiceline ON invoice.invoice_id = invoiceline.invoice_id
-WHERE track_id IN(
-	SELECT track_id FROM track
-	JOIN genre ON track.genre_id = genre.genre_id
-	WHERE genre.name LIKE 'Rock'
-)
-ORDER BY email;
-
-
-/* Method 2 */
-
-SELECT DISTINCT email AS Email,first_name AS FirstName, last_name AS LastName, genre.name AS Name
-FROM customer
-JOIN invoice ON invoice.customer_id = customer.customer_id
-JOIN invoiceline ON invoiceline.invoice_id = invoice.invoice_id
-JOIN track ON track.track_id = invoiceline.track_id
+JOIN invoice_line ON invoice.invoice_id = invoice_line.invoice_id
+JOIN track ON track.track_id = invoice_line.track_id
 JOIN genre ON genre.genre_id = track.genre_id
 WHERE genre.name LIKE 'Rock'
-ORDER BY email;
+ORDER BY customer.email;
 
 
 /* Q7: Let's invite the artists who have written the most rock music in our dataset. 
@@ -86,13 +76,13 @@ LIMIT 10;
 /* Q8: Return all the track names that have a song length longer than the average song length. 
 Return the Name and Milliseconds for each track. Order by the song length with the longest songs listed first. */
 
-SELECT name,miliseconds
+SELECT name, milliseconds
 FROM track
-WHERE miliseconds > (
-	SELECT AVG(miliseconds) AS avg_track_length
-	FROM track )
-ORDER BY miliseconds DESC;
-
+WHERE milliseconds > (
+    SELECT AVG(milliseconds) 
+    FROM track
+)
+ORDER BY milliseconds DESC;
 
 /* Q9: Find how much amount spent by each customer on artists? Write a query to return customer name, artist name and total spent */
 
