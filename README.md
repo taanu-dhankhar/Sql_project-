@@ -1,7 +1,7 @@
 # SQL Project - Music Store Analysis
 
 ## Description
-This project involves analyzing data from an online music store to understand its business growth and trends. 
+This project involves analyzing data from an music store to understand its business growth and trends. 
 
 ## Features
 - Analyze music playlist data.
